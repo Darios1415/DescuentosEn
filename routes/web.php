@@ -11,6 +11,14 @@
 |
 */
 
+use App\Http\Controllers\CategoriasController;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+
+Route::resource('/subcategorias', 'SubcategoriaController');
+Route::resource('/clientes', 'ClienteController');
+Route::resource('/proveedores', 'ProveedorController');
+

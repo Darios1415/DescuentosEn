@@ -20,7 +20,7 @@ class CreateClienteTable extends Migration
             $table->string('apm',10)->comment('Apellido materno del cliente');
             $table->string('email',25)->comment('Correo electronico del cliente');
             $table->string('pass',10)->comment('Contraseña del cliente');
-            $table->integer('telefono')->comment('Numero telefonico del cliente');
+            $table->string('telefono', 10)->comment('Numero telefonico del cliente');
             $table->string('colonia',15)->comment('Colonia del cliente');
             $table->string('calle',15)->comment('Calle del cliente');
             $table->integer('numint')->comment('Numero interior del cliente');
