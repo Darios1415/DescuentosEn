@@ -97,7 +97,6 @@ class ClienteController extends Controller
         $cliente->numext=$request->numext;
         $cliente->cp=$request->cp;
         $cliente->save();
-        $cliente->save();
         return redirect("/clientes");
     }
 

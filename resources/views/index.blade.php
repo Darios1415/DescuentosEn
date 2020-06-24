@@ -10,5 +10,6 @@
     <h2>Catalogo de cruds</h2>
     <li><a href="/subcategorias/">Subcategorias</a></li>
     <li><a href="/clientes/">Clientes</a></li>
+    <li><a href="/proveedores/">Proveedores</a></li>
 </body>
 </html>
