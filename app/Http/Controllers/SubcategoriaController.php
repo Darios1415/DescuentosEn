@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categorias;
 use App\Subcategorias;
+use App\Http\Requests\ValidacionSubcategoria;
+
 
 class SubcategoriaController extends Controller
 {
@@ -27,11 +29,7 @@ class SubcategoriaController extends Controller
      */
     public function create(Request $request)
     {
-        $subcategoria= new Subcategorias();
-        $subcategoria->idc=$request->idc;
-        $subcategoria->nombre=$request->nombre;
-        $subcategoria->save();
-        return redirect("/subcategorias");
+
     }
 
     /**
@@ -40,8 +38,13 @@ class SubcategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidacionSubcategoria $request)
     {
+        $subcategoria= new Subcategorias();
+        $subcategoria->idc=$request->idc;
+        $subcategoria->nombre=$request->nombre;
+        $subcategoria->save();
+        return redirect("/subcategorias");
     }
 
     /**
@@ -65,7 +68,8 @@ class SubcategoriaController extends Controller
     public function edit($idsc)
     {
         $subcategoria=Subcategorias::findOrFail($idsc);
-        return view('/subcategorias.edit', compact('subcategoria'));
+        $categoria=Categorias::all();
+        return view('/subcategorias.edit', compact('subcategoria'), compact('categoria'));
     }
 
     /**
@@ -75,11 +79,12 @@ class SubcategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idsc)
+    public function update(ValidacionSubcategoria $request, $idsc)
     {
 
         $subcategoria=Subcategorias::findOrFail($idsc);
         $subcategoria->nombre=$request->nombre;
+        $subcategoria->idc=$request->idc;
         $subcategoria->save();
         return redirect("/subcategorias");
     }

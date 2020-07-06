@@ -21,11 +21,13 @@ class CreateClienteTable extends Migration
             $table->string('email',25)->comment('Correo electronico del cliente');
             $table->string('pass',10)->comment('Contraseña del cliente');
             $table->string('telefono', 10)->comment('Numero telefonico del cliente');
+            $table->unsignedBigInteger('idm')->comment('Numero identificador del municipio');
             $table->string('colonia',15)->comment('Colonia del cliente');
             $table->string('calle',15)->comment('Calle del cliente');
             $table->integer('numint')->comment('Numero interior del cliente');
             $table->string('numext')->comment('Numero exterior del cliente');
             $table->integer('cp')->comment('Codigo postal del cliente');
+            $table->foreign('idm')->references('idm')->on('municipio');
             $table->timestamps();
         });
     }

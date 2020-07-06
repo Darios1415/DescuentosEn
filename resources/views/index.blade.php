@@ -11,5 +11,6 @@
     <li><a href="/subcategorias/">Subcategorias</a></li>
     <li><a href="/clientes/">Clientes</a></li>
     <li><a href="/proveedores/">Proveedores</a></li>
+    <li><a href="/productos/">Productos</a></li>
 </body>
 </html>

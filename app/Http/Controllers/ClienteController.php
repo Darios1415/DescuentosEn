@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cliente;
+use App\Municipio;
+use App\Http\Requests\ValidacionCliente;
 class ClienteController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes=Cliente::all();
-        return view('/clientes/clientes', compact('clientes'));
+        $municipio=Municipio::all();
+        return view('/clientes/clientes', compact('clientes'), compact('municipio'));
     }
 
     /**
@@ -24,20 +27,7 @@ class ClienteController extends Controller
      */
     public function create(Request $request)
     {
-        $cliente= new Cliente();
-        $cliente->nombre=$request->nombre;
-        $cliente->app=$request->app;
-        $cliente->apm=$request->apm;
-        $cliente->email=$request->email;
-        $cliente->pass=$request->pass;
-        $cliente->telefono=$request->telefono;
-        $cliente->colonia=$request->colonia;
-        $cliente->calle=$request->calle;
-        $cliente->numint=$request->numext;
-        $cliente->numext=$request->numext;
-        $cliente->cp=$request->cp;
-        $cliente->save();
-        return redirect("/clientes");
+
     }
 
     /**
@@ -46,9 +36,23 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidacionCliente $request)
     {
-        //
+        $cliente= new Cliente();
+        $cliente->nombre=$request->nombre;
+        $cliente->app=$request->app;
+        $cliente->apm=$request->apm;
+        $cliente->email=$request->email;
+        $cliente->pass=$request->pass;
+        $cliente->telefono=$request->telefono;
+        $cliente->idm=$request->idm;
+        $cliente->colonia=$request->colonia;
+        $cliente->calle=$request->calle;
+        $cliente->numint=$request->numext;
+        $cliente->numext=$request->numext;
+        $cliente->cp=$request->cp;
+        $cliente->save();
+        return redirect("/clientes");
     }
 
     /**
@@ -72,7 +76,8 @@ class ClienteController extends Controller
     public function edit($idcl)
     {
         $cliente=Cliente::findOrFail($idcl);
-        return view('/clientes.edit', compact('cliente'));
+        $municipio=Municipio::all();
+        return view('/clientes.edit', compact('cliente'), compact('municipio'));
     }
 
     /**
@@ -82,7 +87,7 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idcl)
+    public function update(ValidacionCliente $request, $idcl)
     {
         $cliente=Cliente::findOrFail($idcl);
         $cliente->nombre=$request->nombre;
@@ -91,6 +96,7 @@ class ClienteController extends Controller
         $cliente->email=$request->email;
         $cliente->pass=$request->pass;
         $cliente->telefono=$request->telefono;
+        $cliente->idm=$request->idm;
         $cliente->colonia=$request->colonia;
         $cliente->calle=$request->calle;
         $cliente->numint=$request->numext;

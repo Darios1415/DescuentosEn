@@ -10,15 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-use App\Http\Controllers\CategoriasController;
-
-Route::get('/', function () {
+Route::get('/index', function () {
     return view('index');
 });
-
 
 Route::resource('/subcategorias', 'SubcategoriaController');
 Route::resource('/clientes', 'ClienteController');
 Route::resource('/proveedores', 'ProveedorController');
-
+Route::resource('/productos', 'ProductoController');

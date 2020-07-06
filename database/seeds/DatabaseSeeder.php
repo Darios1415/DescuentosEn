@@ -12,14 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            ['nombre' => 'Alimentos'],
-            ['nombre' => 'Ropa'],
-            ['nombre' => 'Artesania'],
-            ['nombre' => 'Servicios'],
-            ['nombre' => 'Electronica'],
-            ['nombre' => 'Limpieza']
-    ];
-    DB::table('categorias')->insert($data);
-        }
+        $this->call(categoriasTableSeeder::class);
+        $this->call(municipiosTableSeeder::class);
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Proveedor;
+use App\Http\Requests\ValidacionProveedor;
 
 class ProveedorController extends Controller
 {
@@ -23,8 +24,24 @@ class ProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ValidacionProveedor $request)
+    {
+        if($request->hasFile('logo')){
+            $logo=$request->logo;
+            $namelogo=$logo->getClientOriginalName();
+            $logo->move(public_path()."/logos", $namelogo);
+        }
         $proveedor= new Proveedor();
         $proveedor->marca=$request->marca;
         $proveedor->nombre=$request->nombre;
@@ -36,22 +53,11 @@ class ProveedorController extends Controller
         $proveedor->numint=$request->numext;
         $proveedor->numext=$request->numext;
         $proveedor->cp=$request->cp;
-        $proveedor->logo=$request->logo;
+        $proveedor->logo=$namelogo;
         $proveedor->email=$request->email;
         $proveedor->pass=$request->pass;
         $proveedor->save();
         return redirect("/proveedores");
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -60,10 +66,9 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idpr)
+    public function show($id)
     {
-        $proveedor=Proveedor::findOrFail($idpr);
-        return view('/proveedores.show', compact('proveedor'));
+        //
     }
 
     /**
@@ -74,7 +79,7 @@ class ProveedorController extends Controller
      */
     public function edit($idpr)
     {
-        $proveedor=Proveedor::findOrFail($idpr);
+        $proveedor=Proveedor::all();
         return view('/proveedores.edit', compact('proveedor'));
     }
 
@@ -85,9 +90,17 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idpr)
+    public function update(ValidacionProveedor $request, $idpr)
     {
         $proveedor=Proveedor::findOrFail($idpr);
+        if(file_exists(public_path()."/logos/".$proveedor->logo)){
+            if($request->hasFile('logo')){
+                unlink(public_path()."/logos/".$proveedor->logo);
+                $logo=$request->logo;
+                $namelogo=$logo->getClientOriginalName();
+                $logo->move(public_path()."/logos", $namelogo);
+            }
+        }
         $proveedor->marca=$request->marca;
         $proveedor->nombre=$request->nombre;
         $proveedor->app=$request->app;
@@ -98,7 +111,7 @@ class ProveedorController extends Controller
         $proveedor->numint=$request->numext;
         $proveedor->numext=$request->numext;
         $proveedor->cp=$request->cp;
-        $proveedor->logo=$request->logo;
+        $proveedor->logo=$namelogo;
         $proveedor->email=$request->email;
         $proveedor->pass=$request->pass;
         $proveedor->save();
@@ -114,6 +127,7 @@ class ProveedorController extends Controller
     public function destroy($idpr)
     {
         $proveedor=Proveedor::FindOrFail($idpr);
+        unlink(public_path()."/logos/".$proveedor->logo);
         $proveedor->delete();
         return redirect("/proveedores");
     }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mostrar una imagen sin subirla al servidor</title>
+</head>
+<body>
+	<form method="post" enctype="multipart/form-data">
+		<input type="file" onchange="preview(this)" />
+	</form>
+	<!--Aquí se mostrara la imagen seleccionada en el input-->
+	<br><br>
+	<img src="" id="preview" alt="" width="100px">
+</body>
+<script>
+// Funcion para previsualizar la imagen
+function preview(e)
+{
+	if(e.files && e.files[0]){
+		// Comprobamos que sea un formato de imagen
+		if (e.files[0].type.match('image.*')) {
+ 
+			// Inicializamos un FileReader. permite que las aplicaciones web lean 
+			// ficheros (o información en buffer) almacenados en el cliente de forma
+			// asíncrona
+			// Mas info en: https://developer.mozilla.org/es/docs/Web/API/FileReader
+			var reader=new FileReader();
+			// El evento onload se ejecuta cada vez que se ha leido el archivo
+			// correctamente
+			reader.onload=function(e) {
+				document.getElementById("preview").src=e.target.result;
+			}
+			// El evento onerror se ejecuta si ha encontrado un error de lectura
+			reader.onerror=function(e) {
+				document.getElementById("preview").scr="";
+				alert('Hubo un error al cargar la imagen');
+			}
+			// indicamos que lea la imagen seleccionado por el usuario de su disco duro
+			reader.readAsDataURL(e.files[0]);
+		}else{
+			// El formato del archivo no es una imagen
+			document.getElementById("preview").src="";
+			alert("El archivo adjunto no es una imagen");
+		}
+	}
+}
+</script>
+</html>
