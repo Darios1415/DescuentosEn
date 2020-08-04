@@ -15,18 +15,15 @@ class CreateClienteTable extends Migration
     {
         Schema::create('cliente', function (Blueprint $table) {
             $table->bigIncrements('idcl')->comment('Numero identificador del cliente');
-            $table->string('nombre',10)->comment('Nombre del clienet');
-            $table->string('app',10)->comment('Apellido paterno del cliente');
-            $table->string('apm',10)->comment('Apellido materno del cliente');
-            $table->string('email',25)->comment('Correo electronico del cliente');
-            $table->string('pass',10)->comment('Contraseña del cliente');
-            $table->string('telefono', 10)->comment('Numero telefonico del cliente');
             $table->unsignedBigInteger('idm')->comment('Numero identificador del municipio');
             $table->string('colonia',15)->comment('Colonia del cliente');
             $table->string('calle',15)->comment('Calle del cliente');
             $table->integer('numint')->comment('Numero interior del cliente');
             $table->string('numext')->comment('Numero exterior del cliente');
             $table->integer('cp')->comment('Codigo postal del cliente');
+            $table->string('img')->comment('Imagen del cliente');
+            $table->unsignedBigInteger('idu')->comment('Numero identificador del usuario');
+            $table->foreign('idu')->references('idu')->on('usuarios')->onDelete('cascade');
             $table->foreign('idm')->references('idm')->on('municipio');
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ class CreateProductosTable extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('idpr')->comment('Numero identificador de productos');
             $table->string('nombre',10)->comment('Nombre de productos');
-            $table->string('descripcion',250)->comment('Descripcion del producto');
+            $table->text('descripcion')->comment('Descripcion del producto');
             $table->double('precio')->comment('Precio del producto');
             $table->integer('comision')->comment('Comision de productos');
             $table->integer('existencia')->comment('Numero de existencias deproducto');

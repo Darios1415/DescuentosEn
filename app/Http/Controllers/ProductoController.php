@@ -20,7 +20,7 @@ class ProductoController extends Controller
         $producto=Producto::all();
         $categoria=Categorias::all();
         $subcategoria=Subcategorias::all();
-        return view('/productos/productos', compact('producto'), compact('categoria', 'subcategoria'));
+        return view('/tablas/productos', compact('producto'), compact('categoria', 'subcategoria'));
     }
 
     /**
@@ -30,7 +30,10 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        $producto=Producto::all();
+        $categoria=Categorias::all();
+        $subcategoria=Subcategorias::all();
+        return view('/catalogos/productos', compact('producto'), compact('categoria', 'subcategoria'));
     }
 
     /**
@@ -43,7 +46,7 @@ class ProductoController extends Controller
     {
         if($request->hasFile('img')){
             $img=$request->img;
-            $nameimagen=$img->getClientOriginalName();
+            $nameimagen=uniqid().$img->getClientOriginalName();
             $img->move(public_path()."/logos", $nameimagen);
         }
         $producto= new Producto();
@@ -84,7 +87,7 @@ class ProductoController extends Controller
         $producto=Producto::findOrFail($idpr);
         $categoria=Categorias::all();
         $subcategoria=Subcategorias::all();
-        return view('/productos.edit', compact('producto'), compact('categoria', 'subcategoria'));
+        return view('/catalogos/editproductos', compact('producto'), compact('categoria', 'subcategoria'));
     }
 
     /**
@@ -94,7 +97,7 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ValidacionProducto $request, $idpr)
+    public function update(Request $request, $idpr)
     {
          $producto=Producto::findOrFail($idpr);
         if(file_exists(public_path()."/logos/".$producto->img)){
@@ -103,6 +106,7 @@ class ProductoController extends Controller
                 $img=$request->img;
                 $nameimagen=$img->getClientOriginalName();
                 $img->move(public_path()."/logos", $nameimagen);
+                $producto->img=$nameimagen;
             }
         }
         $producto->nombre=$request->nombre;
@@ -113,11 +117,11 @@ class ProductoController extends Controller
         $producto->descc=$request->descc;
         $producto->descp=$request->descp;
         $producto->cost_env=$request->cost_env;
-        $producto->img=$nameimagen;
         $producto->idc=$request->idc;
         $producto->idsc=$request->idsc;
         $producto->save();
         return redirect("/productos");
+
     }
 
     /**
@@ -128,9 +132,10 @@ class ProductoController extends Controller
      */
     public function destroy($idpr)
     {
-
         $producto=Producto::FindOrFail($idpr);
-        unlink(public_path()."/logos/".$producto->img);
+        if(file_exists(public_path()."/logos/".$producto->img)){
+            unlink(public_path()."/logos/".$producto->img);
+        }
         $producto->delete();
         return redirect("/productos");
     }

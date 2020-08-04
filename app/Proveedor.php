@@ -8,6 +8,14 @@ class Proveedor extends Model
 {
     protected $table ='proveedor';
     protected $primaryKey = 'idpr';
-    protected $fillable=['marca','nombre','app', 'apm', 'telefono', 'clebe', 'colonia', 'numint', 'numext', 'cp', 'logo', 'email', 'pass'];
+    protected $fillable=['marca', 'clebe', 'colonia', 'numint', 'numext', 'cp', 'logo','idm','idtu'];
+
+    public function usuario(){
+        return $this->belongsTo('App\Usuario', 'idu');
+    }
+
+    public function municipio(){
+        return $this->belongsTo('App\Municipio', 'idm');
+    }
 
 }

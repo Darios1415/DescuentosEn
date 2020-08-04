@@ -19,7 +19,7 @@ class SubcategoriaController extends Controller
     {
         $categoria=Categorias::all();
         $subcategoria=Subcategorias::all();
-        return view('/subcategorias/subcategorias', compact('categoria'), compact('subcategoria'));
+        return view('/tablas/subcategorias', compact('categoria'), compact('subcategoria'));
     }
 
     /**
@@ -29,7 +29,9 @@ class SubcategoriaController extends Controller
      */
     public function create(Request $request)
     {
-
+        $categoria=Categorias::all();
+        $subcategoria=Subcategorias::all();
+        return view('/catalogos/subcategorias', compact('categoria'), compact('subcategoria'));
     }
 
     /**
@@ -69,7 +71,7 @@ class SubcategoriaController extends Controller
     {
         $subcategoria=Subcategorias::findOrFail($idsc);
         $categoria=Categorias::all();
-        return view('/subcategorias.edit', compact('subcategoria'), compact('categoria'));
+        return view('/catalogos/editsubcategorias', compact('subcategoria'), compact('categoria'));
     }
 
     /**
@@ -81,7 +83,6 @@ class SubcategoriaController extends Controller
      */
     public function update(ValidacionSubcategoria $request, $idsc)
     {
-
         $subcategoria=Subcategorias::findOrFail($idsc);
         $subcategoria->nombre=$request->nombre;
         $subcategoria->idc=$request->idc;

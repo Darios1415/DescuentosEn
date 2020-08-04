@@ -8,9 +8,13 @@ class Cliente extends Model
 {
     protected $table ='cliente';
     protected $primaryKey = 'idcl';
-    protected $fillable=['nombre','app', 'apm', 'email', 'pass', 'telefono', 'idm', 'colonia', 'calle', 'numint', 'numext', 'cp'];
+    protected $fillable=['idm', 'colonia', 'calle', 'numint', 'numext', 'cp', 'img', 'idu'];
 
     public function municipio(){
         return $this->belongsTo('App\Municipio', 'idm');
+    }
+
+    public function usuario(){
+        return $this->belongsTo('App\Usuario', 'idu');
     }
 }

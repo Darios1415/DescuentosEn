@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Cliente;
 use App\Municipio;
+use App\Usuario;
 use App\Http\Requests\ValidacionCliente;
+
 class ClienteController extends Controller
 {
     /**
@@ -15,9 +16,10 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes=Cliente::all();
+        $cliente=Cliente::all();
+        $usuario=Usuario::all();
         $municipio=Municipio::all();
-        return view('/clientes/clientes', compact('clientes'), compact('municipio'));
+        return view('/tablas/clientes', compact('cliente'), compact('usuario', 'municipio'));
     }
 
     /**
@@ -25,9 +27,12 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
+        $cliente=Cliente::all();
+        $usuario=Usuario::all();
+        $municipio=Municipio::all();
+        return view('/catalogos/clientes', compact('cliente'), compact('usuario', 'municipio'));
     }
 
     /**
@@ -38,19 +43,31 @@ class ClienteController extends Controller
      */
     public function store(ValidacionCliente $request)
     {
+        if($request->hasFile('img')){
+            $img=$request->img;
+            $nameimagen=uniqid().$img->getClientOriginalName();
+            $img->move(public_path()."/logos", $nameimagen);
+        }
+        $usuario= new Usuario();
+        $usuario->nombre=$request->nombre;
+        $usuario->app=$request->app;
+        $usuario->apm=$request->apm;
+        $usuario->email=$request->email;
+        $usuario->pass=md5($request->pass);
+        $usuario->telefono=$request->telefono;
+        $usuario->idtu=3;
+        $usuario->save();
+        $idu=Usuario::where('email', '=', $request->email)->get();
+        $idu=$idu[0]->idu;
         $cliente= new Cliente();
-        $cliente->nombre=$request->nombre;
-        $cliente->app=$request->app;
-        $cliente->apm=$request->apm;
-        $cliente->email=$request->email;
-        $cliente->pass=$request->pass;
-        $cliente->telefono=$request->telefono;
         $cliente->idm=$request->idm;
         $cliente->colonia=$request->colonia;
         $cliente->calle=$request->calle;
-        $cliente->numint=$request->numext;
+        $cliente->numint=$request->numint;
         $cliente->numext=$request->numext;
         $cliente->cp=$request->cp;
+        $cliente->img=$nameimagen;
+        $cliente->idu=$idu;
         $cliente->save();
         return redirect("/clientes");
     }
@@ -61,10 +78,9 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idcl)
+    public function show($id)
     {
-        $cliente=Cliente::findOrFail($idcl);
-        return view('/clientes.show', compact('cliente'));
+        //
     }
 
     /**
@@ -76,8 +92,9 @@ class ClienteController extends Controller
     public function edit($idcl)
     {
         $cliente=Cliente::findOrFail($idcl);
+        $usuario=Usuario::findOrFail($cliente->idu);
         $municipio=Municipio::all();
-        return view('/clientes.edit', compact('cliente'), compact('municipio'));
+        return view('/catalogos/editclientes', compact('cliente'), compact('usuario', 'municipio'));
     }
 
     /**
@@ -87,21 +104,36 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ValidacionCliente $request, $idcl)
+    public function update(Request $request, $idcl)
     {
         $cliente=Cliente::findOrFail($idcl);
-        $cliente->nombre=$request->nombre;
-        $cliente->app=$request->app;
-        $cliente->apm=$request->apm;
-        $cliente->email=$request->email;
-        $cliente->pass=$request->pass;
-        $cliente->telefono=$request->telefono;
+        $usuario=Usuario::findOrFail($cliente->idu);
+        if(file_exists(public_path()."/logos/".$cliente->img)){
+            if($request->hasFile('img')){
+                unlink(public_path()."/logos/".$cliente->img);
+                $img=$request->img;
+                $nameimagen=$img->getClientOriginalName();
+                $img->move(public_path()."/logos", $nameimagen);
+                $cliente->img=$nameimagen;
+            }
+        }
+        $usuario->nombre=$request->nombre;
+        $usuario->app=$request->app;
+        $usuario->apm=$request->apm;
+        $usuario->email=$request->email;
+        $usuario->pass=md5($request->pass);
+        $usuario->telefono=$request->telefono;
+        $usuario->idtu=3;
+        $usuario->save();
+        $idu=Usuario::where('email', '=', $request->email)->get();
+        $idu=$idu[0]->idu;
         $cliente->idm=$request->idm;
         $cliente->colonia=$request->colonia;
         $cliente->calle=$request->calle;
-        $cliente->numint=$request->numext;
+        $cliente->numint=$request->numint;
         $cliente->numext=$request->numext;
         $cliente->cp=$request->cp;
+        $cliente->idu=$idu;
         $cliente->save();
         return redirect("/clientes");
     }
@@ -115,7 +147,10 @@ class ClienteController extends Controller
     public function destroy($idcl)
     {
         $cliente=Cliente::FindOrFail($idcl);
+        $usuario=Usuario::findOrFail($cliente->idu);
+        unlink(public_path()."/logos/".$cliente->img);
         $cliente->delete();
+        $usuario->delete();
         return redirect("/clientes");
     }
 }

@@ -19,7 +19,10 @@ class CreateAdministradorTable extends Migration
             $table->string('app',10)->comment('Apellido paterno del administrador');
             $table->string('apm',10)->comment('Apellido materno del administrador');
             $table->string('email',25)->comment('Correo Electronico del administrador');
-            $table->string('pass',10)->comment('Contraseña del administrador');
+            $table->string('pass',250)->comment('Contraseña del administrador');
+            $table->integer('telefono')->comment('Numero telefonico del administrador');
+            $table->unsignedBigInteger('idtu')->comment('Numero identificador del tipo de usuario');
+            $table->foreign('idtu')->references('idtu')->on('tiposusuarios');
             $table->timestamps();
         });
     }
