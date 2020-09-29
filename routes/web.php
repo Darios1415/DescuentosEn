@@ -13,7 +13,7 @@
     /*=====================================
 		Rutas de usuarios no registrados
 	======================================*/
-   // Route::group(['middleware' => 'web'], function () {
+    Route::group(['middleware' => 'web'], function () {
     Route::get('/', function () {
         $usuario = session()->get('usuario');
         return view('index')->with('usuario', $usuario);
