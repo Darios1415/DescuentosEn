@@ -17,6 +17,10 @@ class CreatePedidosTable extends Migration
             $table->bigIncrements('idpe')->comment('Numero identificador de pedidos');
             $table->integer('cantidad_items')->comment('Numero de items de los pedidos');
             $table->integer('total')->comment('Precio total del pedido realizado');
+            $table->unsignedBigInteger('idprov')->comment('Numero identificador del proveedor');
+            $table->unsignedBigInteger('idprod')->comment('Numero identificador del producto');
+            $table->foreign('idprov')->references('idpr')->on('proveedor')->onDelete('cascade');
+            $table->foreign('idprod')->references('idpr')->on('productos')->onDelete('cascade');
             $table->timestamps();
         });
     }

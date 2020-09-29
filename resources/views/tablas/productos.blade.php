@@ -1,6 +1,5 @@
 
 @extends('layouts/admin')
-
 @section('content')
 
 <section class="content">
@@ -35,7 +34,7 @@
             <tbody>
                 @foreach ($producto as $item)
                 <tr>
-                    <td><img src="/logos/{{$item->img}}" width="50px" alt=""></td>
+                    <td><img src="/logos/producto/{{$item->img}}" width="100px" alt=""></td>
                     <td>{{$item->nombre}}</td>
                     <td>{{$item->descripcion}}</td>
                     <td>{{$item->precio}}</td>
@@ -51,7 +50,7 @@
                             <img src="/icons/editar.png" alt="" height="40px">
                         </a>
                         <hr>
-                        <form method="POST" action="{{route('productos.destroy', $item->idpr)}}">
+                        <form method="POST" action="{{route('productos.destroy', $item->idpr)}}" class="formulario-eliminar">
                             @method('DELETE')
                             {{csrf_field()}}
                         <BUtton style="border: 0;"> <img src="/icons/eliminar.png" alt="" height="40px"></BUtton>
@@ -84,4 +83,62 @@
       });
     });
   </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+@if (session('success') =='ok')
+<script>
+    Swal.fire({
+    position: '',
+    icon: 'success',
+    title: 'producto registrado',
+    showConfirmButton: false,
+    timer: 1500
+    })
+</script>
+@endif
+@if (session('success') =='edit')
+<script>
+    Swal.fire({
+    position: '',
+    icon: 'success',
+    title: 'Producto Editado',
+    showConfirmButton: false,
+    timer: 1500
+    })
+</script>
+@endif
+
+<script>
+    $('.formulario-eliminar').submit(function(e){
+        e.preventDefault();
+
+            Swal.fire({
+            title: '¿Desea eliminar este Producto?',
+            text: "¡Este producto se eliminara definitivamente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡si, eliminar!',
+            cancelButtonText: '¡Cancelar!',
+            }).then((result) => {
+            if (result.value) {
+                this.submit();
+            }
+            })
+    })
+
+</script>
+
+@if (session('success') =='delete')
+<script>
+       Swal.fire(
+            'Producto Eliminado!',
+            'El producto se elimino con exito.',
+            'success'
+       )
+</script>
+@endif
+
 @endsection

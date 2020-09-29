@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Session;
 class RegisterController extends Controller
 {
     /*
@@ -23,22 +24,41 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+   /* public function __construct()
+    {
+        $this->middleware('guest');
+    } */
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = 'cliente';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-  /*  public function __construct()
-    {
-        $this->middleware('guest');
-    } */
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -50,8 +70,6 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nombre' => ['required', 'string', 'max:255'],
-            'app' => ['required', 'string', 'max:255'],
-            'apm' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'],
             'pass' => ['required', 'string', 'min:8', 'confirmed'],
             'telefono' => ['required', 'numeric'],
@@ -68,12 +86,16 @@ class RegisterController extends Controller
     {
         return User::create([
             'nombre' => $data['nombre'],
-            'app' => $data['app'],
-            'apm' => $data['apm'],
             'email' => $data['email'],
             'pass' => md5($data['pass']),
             'telefono' => $data['telefono'],
             'idtu' => 3,
         ]);
+
+        $user=User::where([
+            'email'=>$data['email'],
+            'pass'=>md5($data['pass']),
+        ])->get();
+        \session()->put('usuario', $user);
     }
 }

@@ -24,7 +24,8 @@ class ValidacionCategoria extends FormRequest
     public function rules()
     {
         return [
-            'nombre' =>'required|alpha_num|unique:categorias,nombre'
+            'nombre' =>'required|alpha_num|unique:categorias,nombre',
+            'ruta' =>'required|image',
         ];
     }
 
@@ -32,6 +33,8 @@ class ValidacionCategoria extends FormRequest
     {
         return[
         'nombre.required'=>'Categoria es requerida',
+        'ruta.required'=>'Imagen requerida',
+        'ruta.image'=>'Imagen invalida',
         ];
     }
 

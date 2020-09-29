@@ -44,6 +44,11 @@
                             <input type="password" name="pass" placeholder="Contraseña" class="form-control">
                             {!! $errors->first('pass', '<small class="text-danger"">:message</small>') !!}
                             </div>
+                            <div class="col">
+                            <label for="">Confirmar contraseña<span>*</span></label>
+                            <input type="password" name="pass_confirmation" placeholder="Contraseña" class="form-control">
+                            {!! $errors->first('pass_confirmation', '<small class="text-danger"">:message</small>') !!}
+                            </div>
                         </div>
                         </div>
                         <div class="form-group">

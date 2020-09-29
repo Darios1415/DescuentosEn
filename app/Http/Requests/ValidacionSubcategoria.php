@@ -25,7 +25,8 @@ class ValidacionSubcategoria extends FormRequest
     {
         return [
             'idc' => 'required|integer|not_in:0',
-            'nombre' =>'required|alpha_num|unique:subcategorias,nombre'
+            'nombre' =>'required|alpha_num|unique:subcategorias,nombre',
+            'ruta' =>'required|image',
         ];
     }
 
@@ -35,7 +36,9 @@ class ValidacionSubcategoria extends FormRequest
         'idc.integer'=>'Seleccione la categoria',
         'nombre.required'=>'Subcategoria es requerida',
         'nombre.alpha_num'=>'Subcategoria solo puede contener letras y numeros',
-        'nombre.unique'=>'Subcategoria ya se encuentra registrado'
+        'nombre.unique'=>'Subcategoria ya se encuentra registrado',
+        'ruta.required'=>'Imagen requerida',
+        'ruta.image'=>'Imagen invalida',
         ];
     }
 }

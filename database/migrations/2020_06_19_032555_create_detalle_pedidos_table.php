@@ -22,6 +22,8 @@ class CreateDetallePedidosTable extends Migration
             $table->string('iva')->comment('iva aplicado en el pedido realizado');
             $table->double('envio',5,2)->comment('Precio del envio del pedido');
             $table->double('subtotal',5,2)->comment('Subtotal del pedido relizado');
+            $table->unsignedBigInteger('idpe')->comment('Numero identificador del pedido');
+            $table->foreign('idpe')->references('idpe')->on('pedidos')->onDelete('cascade');
             $table->timestamps();
         });
     }

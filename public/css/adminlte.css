@@ -10393,7 +10393,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
 }
 
 .layout-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"]) {
-  background-color: #ffffff;
+  background-color: #1C60AD;
 }
 
 .layout-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"]) {
@@ -10554,7 +10554,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
 }
 
 .layout-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"]) {
-  background-color: #ffffff;
+  background-color: #1C60AD;
 }
 
 .layout-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"]) {
@@ -10712,7 +10712,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
     background-color: #343a40;
   }
   .layout-sm-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"]) {
-    background-color: #ffffff;
+    background-color: #1C60AD;
   }
   .layout-sm-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"]) {
     background-color: #343a40;
@@ -10847,7 +10847,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
     background-color: #343a40;
   }
   .layout-md-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"]) {
-    background-color: #ffffff;
+    background-color: #1C60AD;
   }
   .layout-md-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"]) {
     background-color: #343a40;
@@ -10982,7 +10982,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
     background-color: #343a40;
   }
   .layout-lg-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"]) {
-    background-color: #ffffff;
+    background-color: #1C60AD;
   }
   .layout-lg-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"]) {
     background-color: #343a40;
@@ -11117,7 +11117,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
     background-color: #343a40;
   }
   .layout-xl-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"]) {
-    background-color: #ffffff;
+    background-color: #1C60AD;
   }
   .layout-xl-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"]) {
     background-color: #343a40;

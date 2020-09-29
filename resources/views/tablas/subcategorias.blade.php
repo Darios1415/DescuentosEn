@@ -16,6 +16,7 @@
                     </a>
                 <thead>
                     <tr>
+                        <td>Imagen</td>
                         <td>Categoria</td>
                         <td>Subcategoria</td>
                         <td>Accion</td>
@@ -24,6 +25,7 @@
                 <tbody>
                     @foreach ($subcategoria as $item)
                     <tr>
+                        <td><img src="/logos/subcategoria/{{$item->ruta}}" width="100px" alt=""></td>
                         <td>{{$item->categoria->nombre}}</td>
                         <td>{{$item->nombre}}</td>
                         <td>
@@ -31,7 +33,7 @@
                                 <img src="/icons/editar.png" alt="" height="40px">
                             </a>
                             <hr>
-                            <form method="POST" action="{{route('subcategorias.destroy', $item->idsc)}}">
+                            <form method="POST" action="{{route('subcategorias.destroy', $item->idsc)}}" class="formulario-eliminar">
                                 @method('DELETE')
                                 {{csrf_field()}}
                             <BUtton style="border: 0;"> <img src="/icons/eliminar.png" alt="" height="40px"></BUtton>
@@ -64,6 +66,63 @@
     });
   </script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+@if (session('success') =='ok')
+<script>
+    Swal.fire({
+    position: '',
+    icon: 'success',
+    title: 'Subcategoria creada',
+    showConfirmButton: false,
+    timer: 1500
+    })
+</script>
+@endif
+@if (session('success') =='edit')
+<script>
+    Swal.fire({
+    position: '',
+    icon: 'success',
+    title: 'SubCategoria Editada',
+    showConfirmButton: false,
+    timer: 1500
+    })
+</script>
+@endif
+
+<script>
+    $('.formulario-eliminar').submit(function(e){
+        e.preventDefault();
+
+            Swal.fire({
+            title: '¿Desea eliminar Subcategoria?',
+            text: "¡Esta Subcategoria se eliminara definitivamente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡si, eliminar!',
+            cancelButtonText: '¡Cancelar!',
+            }).then((result) => {
+            if (result.value) {
+                this.submit();
+            }
+            })
+
+    })
+
+</script>
+
+@if (session('success') =='delete')
+<script>
+       Swal.fire(
+            'Subcategoria Eliminada!',
+            'La Subccategoria se elimino con exito.',
+            'success'
+       )
+</script>
+@endif
 @endsection
 
 

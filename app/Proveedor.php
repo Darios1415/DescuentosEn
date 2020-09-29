@@ -8,7 +8,7 @@ class Proveedor extends Model
 {
     protected $table ='proveedor';
     protected $primaryKey = 'idpr';
-    protected $fillable=['marca', 'clebe', 'colonia', 'numint', 'numext', 'cp', 'logo','idm','idtu'];
+    protected $fillable=['marca', 'clebe', 'colonia', 'numint', 'numext', 'cp', 'logo','idm','idu'];
 
     public function usuario(){
         return $this->belongsTo('App\Usuario', 'idu');

@@ -16,8 +16,8 @@ class CreateUsuariosTable extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->bigIncrements('idu')->comment('numero identificador del usuario');
             $table->string('nombre', 10)->comment('Nombre del administrador');
-            $table->string('app',10)->comment('Apellido paterno del usuario');
-            $table->string('apm',10)->comment('Apellido materno del usuario');
+            $table->string('app',10)->nullable()->comment('Apellido paterno del usuario');
+            $table->string('apm',10)->nullable()->comment('Apellido materno del usuario');
             $table->string('email',25)->comment('Correo Electronico del usuario');
             $table->string('pass',250)->comment('Contraseña del usuario');
             $table->integer('telefono')->comment('Numero telefonico del usuario');

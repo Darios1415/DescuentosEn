@@ -15,7 +15,7 @@ class CreateMunicipioTable extends Migration
     {
         Schema::create('municipio', function (Blueprint $table) {
             $table->bigIncrements('idm')->comment('Numero identificador del municipio');
-            $table->string('nombre',10)->comment('Nombre del municipio');
+            $table->string('nombre',100)->comment('Nombre del municipio');
             $table->timestamps();
         });
     }

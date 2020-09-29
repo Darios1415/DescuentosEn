@@ -24,13 +24,12 @@ class ValidacionCliente extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|alpha_num',
-            'app'=>'required|alpha',
-            'apm'=>'required|alpha',
-            'app'=>'required|alpha',
-            'email'=>'required|email|unique:usuarios,email',
-            'pass'=>'required|min:8',
-            'telefono'=>'required|integer',
+            'nombre' => ['required', 'string', 'max:255'],
+            'app' => ['required', 'string', 'max:255'],
+            'apm' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'],
+            'pass' => ['required', 'string', 'min:8', 'confirmed'],
+            'telefono' => ['required', 'numeric'],
             'idm' =>'required|integer|not_in:0',
             'colonia' =>'required',
             'calle' =>'required',
@@ -40,9 +39,9 @@ class ValidacionCliente extends FormRequest
             'img' =>'required|image',
         ];
     }
-   public function messages()
+public function messages()
     {
-       return[
+    return[
         'nombre.required'=>'Nombre es requerido',
         'nombre.alpha_num'=>'Nombre invalido',
         'app.required'=>'Apellido paterno es requerido',
@@ -54,6 +53,7 @@ class ValidacionCliente extends FormRequest
         'email.unique'=>'El correo electronico ya se encuentra registrado',
         'pass.required'=>'contraseña requerida',
         'pass.min'=>'contraseña debe contener almenos 8 caracteres',
+        'pass.confirmed'=>'La confirmacion de Contraseña no coinciden',
         'telefono.required'=>'Telefono es requerido',
         'telefono.integer'=>'Telefono invalido',
         'idm.integer'=>'Seleccione un municipio',
@@ -67,6 +67,6 @@ class ValidacionCliente extends FormRequest
         'cp.required'=>'codigo postal requerido',
         'cp.integer'=>'codigo postal invalido, solo puede contener numeros',
         'img.required'=>'Imagen requerida',
-       ];
+    ];
     }
 }

@@ -26,6 +26,8 @@
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+
 </head>
     <body>
     <div class="contenedor">
@@ -78,12 +80,17 @@
                     </div>
                     <!-- / inicio encabezado arriba a la izquierda -->
                     <div class="aa-header-top-right">
+                        @if(isset($usuario))
                     <ul class="aa-head-top-nav-right">
-                        <li><a href="MiCuenta.html">Mi Cuenta</a></li>
+                    <li><a href="{{'cliente'}}">Mi Cuenta</a></li>
                         <li class="hidden-xs"><a href="ListaDeDeseos.html">Lista de Deseos</a></li>
-                        <li class="hidden-xs"><a href="Carrito.html">Carrito</a></li>
                         <li class="hidden-xs"><a href="Comprar.html">Comprar</a></li>
-                        <li><a href="" data-toggle="modal" data-target="#login-modal">Iniciar sesion</a></li>
+                    <li><a href="{{route('logout')}}">cerrar sesion</a></li>
+                        @else
+                        <ul class="aa-head-top-nav-right">
+                        <li class="hidden-xs"><a href="{{route('register')}}">Registrar</a></li>
+                            <li><a href="" data-toggle="modal" data-target="#login-modal">Iniciar sesion</a></li>
+                        @endif
                     </ul>
                     </div>
                 </div>
@@ -102,7 +109,7 @@
                     <!-- logo  -->
                     <div class="aa-logo">
 
-                    <a href="index.html">
+                    <a href="/">
                         <!-- logo -->
                         <p><img src="img/logo.png" alt="img"></p>
                         <!-- logo -->
@@ -116,11 +123,11 @@
                     <!-- Carrito -->
                     <div class="aa-cartbox">
 
-                    @include("paginas/carrito");
+                    @include("paginas/carrito")
 
                     <div class="aa-cartbox-summary">
 
-                    @include("paginas/carritocompras");
+                    @include("paginas/carritocompras")
 
                     </div>
                     </div>
@@ -158,7 +165,7 @@
                 <div class="navbar-collapse collapse">
                 <!-- Barra navegación-->
                 <ul class="nav navbar-nav">
-                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="/">Inicio</a></li>
                     <li><a href="#">Categorias <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Artesanias</a></li>
@@ -296,13 +303,12 @@
         <!-- / footer -->
 
         <!-- Login Modal -->
-        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
+        <div class="modal fade" id="login-modal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-body">
 
-                @include("Auth/login");
+                @include("Auth/login")
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -328,7 +334,9 @@
         <script type="text/javascript" src="js/nouislider.js"></script>
         <!-- Custom js -->
         <script src="js/custom.js"></script>
-        <script src="js/login.js"></script>
+        <!--  <script src="js/login.js"></script> -->
+
+
     </div>
     </body>
 

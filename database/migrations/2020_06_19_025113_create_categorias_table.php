@@ -16,6 +16,7 @@ class CreateCategoriasTable extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->bigIncrements('idc')->comment('Numero identificador de categorias');
             $table->string('nombre',25)->comment('Nombre de la categoria');
+            $table->string('ruta')->nullable()->comment('Imagen de la categoria');
             $table->timestamps();
         });
     }

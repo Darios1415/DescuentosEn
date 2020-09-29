@@ -8,7 +8,7 @@
             <!-- general form elements -->
             <div class="card card-warning">
                 <div class="card-header">
-                    <h3 class="card-title">Editar Datos del cliente {{$cliente->nombre}}</h3>
+                    <h3 class="card-title">Editar Datos del cliente {{$usuario->nombre}}</h3>
                 </div>
                 <form action="{{route('clientes.update',  $cliente->idcl)}}" method="Post" enctype="multipart/form-data">
                 @method('Patch')
