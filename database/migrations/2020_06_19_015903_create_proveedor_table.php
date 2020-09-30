@@ -15,12 +15,12 @@ class CreateProveedorTable extends Migration
     {
         Schema::create('proveedor', function (Blueprint $table) {
             $table->bigIncrements('idpr')->comment('Numero identificador del proveedor');
-            $table->string('marca',10)->comment('Marca del prooveedor');
-            $table->integer('clabe')->comment('clabe del prooveedor');
-            $table->string('colonia', 10)->comment('Colonia del prooveedor');
-            $table->integer('numint')->comment('Numero interior del prooveedor');
-            $table->string('numext')->comment('Numero exterior del prooveedor');
-            $table->integer('cp')->comment('Codigo postal del prooveedor');
+            $table->string('marca',50)->comment('Marca del prooveedor');
+            $table->string('clabe',18)->comment('clabe del prooveedor');
+            $table->string('colonia', 150)->comment('Colonia del prooveedor');
+            $table->string('numint', 50)->comment('Numero interior del prooveedor');
+            $table->string('numext', 50)->comment('Numero exterior del prooveedor');
+            $table->string('cp', 5)->comment('Codigo postal del prooveedor');
             $table->string('logo')->comment('logotipo del prooveedor');
             $table->unsignedBigInteger('idm')->comment('Numero identificador del municipio');
             $table->unsignedBigInteger('idu')->comment('Numero identificador del usuario');
